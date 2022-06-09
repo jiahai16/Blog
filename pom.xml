@@ -185,7 +185,7 @@
 
 
     <build>
-        <finalName>serve-blog-${project.version}</finalName>
+        <finalName>blog-server-${project.version}</finalName>
 
         <!--<filters>
             <filter>../filters/${env}.properties</filter>
