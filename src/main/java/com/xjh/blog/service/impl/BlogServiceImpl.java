@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -78,10 +79,14 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Article> selectArticle(Long id) {
         try {
+            List<Article> res;
             if (id.equals(-1L)){
-                return articleMapper.selectAll();
+                res = articleMapper.selectAll();
+            }else {
+                res = Arrays.asList(articleMapper.selectByPrimaryKey(id));
             }
-            return Arrays.asList(articleMapper.selectByPrimaryKey(id));
+            res.sort((o1,o2) -> o2.getCreated().compareTo(o1.getCreated()));
+            return res;
         }catch (Exception e){
             throw new CommonException(CommonErrorCode.UNKNOWN_ERROR);
         }
